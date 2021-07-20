@@ -1,9 +1,9 @@
 pipeline {
   agent any
   stages {
-    stage('docker'){
-      steps {
+    stage("docker"){
       def dockerHome=tool name: 'docker', type: 'dockerTool'
+      steps {
       echo "${dockerHome}"
       }
     }
