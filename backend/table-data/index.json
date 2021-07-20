@@ -1,0 +1,24 @@
+{
+  "userTable": {
+    "name": "Bhawana Parashar",
+    "userId": "bhawana",
+    "password": "12345"
+  },
+  "dashboardTable": [
+    {
+      "desc": "House Rent",
+      "amount": "1000",
+      "date": "12-02-2020"
+    },
+    {
+      "desc": "Travel Expense",
+      "amount": "1000",
+      "date": "12-02-2020"
+    },
+    {
+      "desc": "Others",
+      "amount": "1000",
+      "date": "12-02-2020"
+    }
+  ]
+}

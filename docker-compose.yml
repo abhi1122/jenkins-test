@@ -1,0 +1,21 @@
+version: '3'
+services:
+  admin-ui:
+    build:
+      context: ./frontend
+    ports:
+      - "3008:3008"
+    container_name: admin-ui
+    stdin_open: true
+    volumes:
+       - ./frontend:/usr/src/app/frontend
+       - /usr/src/app/frontend/node_modules
+  nodejs-server:
+    build:
+      context: ./backend
+    ports:
+      - "3007:3007"
+    container_name: node-api
+    volumes:
+       - ./backend:/usr/src/app/backend
+       - /usr/src/app/backend/node_modules
