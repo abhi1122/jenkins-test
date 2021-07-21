@@ -5,7 +5,7 @@ pipeline {
     stage("build") {
       steps {
         sh """
-          docker build -t docker_build .
+          docker-compose build
         """
       }
     }
