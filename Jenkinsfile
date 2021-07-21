@@ -1,6 +1,6 @@
 pipeline {
   agent any
-  tools {docker "docker"}
+  tools {dockerTool "dockerTool"}
   stages {
     stage("build") {
       steps {
