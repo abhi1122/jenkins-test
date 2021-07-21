@@ -1,35 +1,12 @@
 pipeline {
-  // Assign to docker slave(s) label, could also be 'any'
-  agent any
-
-  stages {
-    stage('Docker node test') {
-      agent {
-        docker {
-          // Set both label and image
-          label 'docker'
-          image 'node:7-alpine'
-          args '--name docker-node' // list any args
-        }
-      }
-      steps {
-        // Steps run in node:7-alpine docker container on docker slave
-        sh 'node --version'
-      }
+    agent {
+        docker { image 'node:14-alpine' }
     }
-
-    stage('Docker maven test') {
-      agent {
-        docker {
-          // Set both label and image
-          label 'docker'
-          image 'maven:3-alpine'
+    stages {
+        stage('Test') {
+            steps {
+                sh 'node --version'
+            }
         }
-      }
-      steps {
-        // Steps run in maven:3-alpine docker container on docker slave
-        sh 'mvn --version'
-      }
     }
-  }
-} 
+}
