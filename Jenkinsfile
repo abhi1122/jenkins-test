@@ -1,24 +1,11 @@
 pipeline {
   agent any
     
-  stages {
-    
-    dir("folder") {
-       sh "pwd"
-    
-        
-    stage('Build') {
-      steps {
-        sh 'npm install'
-         sh 'npm start'
-      }
-    }  
+  steps {
+    sh "pwd"
+    dir('your-sub-directory') {
+      sh "pwd"
     }
-            
-    stage('Test') {
-      steps {
-        sh 'node test'
-      }
-    }
-  }
+    sh "pwd"
+} 
 }
