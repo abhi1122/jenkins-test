@@ -16,7 +16,7 @@ pipeline {
       steps {
         dir("frontend") {
             sh "pwd"
-            sh 'npm run build'
+            sh 'npm start'
         }  
       }
     }
