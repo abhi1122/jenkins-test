@@ -2,6 +2,10 @@ pipeline {
   agent any
     
   stages {
+    
+    dir("folder") {
+       sh "pwd"
+    }
         
     stage('Build') {
       steps {
