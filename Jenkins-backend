@@ -7,9 +7,9 @@ pipeline {
       steps {
         dir("backend") {
             sh "pwd"
+            sh 'npm install'
+            sh 'npm start'
         }  
-        sh 'npm install'
-        sh 'npm start'
       }
     }  
     
