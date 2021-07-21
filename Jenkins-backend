@@ -7,11 +7,20 @@ pipeline {
       steps {
         dir("backend") {
             sh "pwd"
+            sh 'npm install forever -g'
             sh 'npm install'
-            sh 'npm start'
         }  
       }
-    }  
+    }
+    
+    stage('Start') {
+      steps {
+        dir("backend") {
+            sh "pwd"
+            sh 'forever start ./bin/www'
+        }  
+      }
+    }
     
             
     stage('Test') {
