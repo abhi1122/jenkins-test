@@ -1,11 +1,18 @@
 pipeline {
   agent any
-  tools {docker22 "docker-compose"}
+  tools {dockerTool "docker"}
   stages {
     stage("build") {
       steps {
         sh """
-          docker-compose build
+          docker build -t docker_build .
+        """
+      }
+    }
+    stage("run") {
+      steps {
+        sh """
+          docker run --rm docker_build
         """
       }
     }
