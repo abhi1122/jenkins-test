@@ -7,7 +7,7 @@ pipeline {
       steps {
         dir("backend") {
             sh "pwd"
-            sh 'npm install forever -g'
+            sh 'npm install nodemon -g'
             sh 'npm install'
         }  
       }
@@ -17,7 +17,7 @@ pipeline {
       steps {
         dir("backend") {
             sh "pwd"
-            sh 'npm start'
+            sh 'nodemon'
         }  
       }
     }
