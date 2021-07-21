@@ -18,6 +18,7 @@ pipeline {
         dir("backend") {
             sh "pwd"
             sh 'BUILD_ID=dontKillMe pm2 start ./bin/www &'
+            sh 'pm2 list'
         }  
       }
     }
