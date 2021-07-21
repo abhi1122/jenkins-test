@@ -5,7 +5,7 @@ pipeline {
     
     dir("folder") {
        sh "pwd"
-    }
+    
         
     stage('Build') {
       steps {
@@ -13,7 +13,7 @@ pipeline {
          sh 'npm start'
       }
     }  
-    
+    }
             
     stage('Test') {
       steps {
