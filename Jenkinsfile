@@ -5,7 +5,14 @@ pipeline {
     stage("build") {
       steps {
         sh """
-          docker build
+          docker build -t docker_build .
+        """
+      }
+    }
+    stage("run") {
+      steps {
+        sh """
+          docker run --rm docker_build
         """
       }
     }
