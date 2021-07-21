@@ -7,7 +7,7 @@ pipeline {
       steps {
         dir("backend") {
             sh "pwd"
-            sh 'npm install forever -g'
+            sh 'npm install pm2 -g'
             sh 'npm install'
         }  
       }
@@ -17,7 +17,7 @@ pipeline {
       steps {
         dir("backend") {
             sh "pwd"
-            sh 'BUILD_ID=dontKillMe forever -a -l myforever.log ./bin/www &'
+            sh 'BUILD_ID=dontKillMe pm2 start ./bin/www &'
         }  
       }
     }
