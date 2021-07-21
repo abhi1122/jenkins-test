@@ -1,6 +1,6 @@
 pipeline {
   agent any
-  tools {docker-compose "docker-compose"}
+  tools {docker22 "docker-compose"}
   stages {
     stage("build") {
       steps {
