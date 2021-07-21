@@ -17,7 +17,6 @@ pipeline {
       steps {
         dir("backend") {
             sh "pwd"
-            sh "forever stop ./bin/www"
             sh 'BUILD_ID=dontKillMe forever -a -l myforever.log ./bin/www &'
         }  
       }
