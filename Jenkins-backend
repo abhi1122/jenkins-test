@@ -17,7 +17,7 @@ pipeline {
       steps {
         dir("backend") {
             sh "pwd"
-            sh 'npm start'
+            sh 'forever start ./bin/www'
         }  
       }
     }
