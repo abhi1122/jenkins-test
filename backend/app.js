@@ -39,7 +39,7 @@ app.use(express.static(path.join(__dirname, "public")));
 const options = {
   swaggerDefinition: {
     info: {
-      title: "Let's Connect",
+      title: "Let's Connect2222",
       version: '1.0.0',
       description: "Let's Connect api for all chat activity's",
     },
