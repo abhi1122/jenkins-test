@@ -9,12 +9,5 @@ pipeline {
         """
       }
     }
-    stage("run") {
-      steps {
-        sh """
-          docker run --rm docker_build
-        """
-      }
-    }
   }
 }
