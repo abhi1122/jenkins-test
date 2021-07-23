@@ -1,0 +1,25 @@
+pipeline {
+  agent any
+  tools {nodejs "nodejs"}  
+  stages {
+
+    stage('Build') {
+      steps {
+        dir("frontend") {
+            sh "pwd"
+            sh 'npm install'
+        }  
+      }
+    }
+    
+    stage('Start') {
+      steps {
+        dir("frontend") {
+            sh "pwd"
+            sh 'npm start'
+        }  
+      }
+    }
+
+  }
+}

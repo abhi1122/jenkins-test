@@ -1,17 +1,18 @@
 pipeline {
-  agent { label "linux" }
+  agent any
+  tools {dockerTool "docker"}
   stages {
     stage("build") {
       steps {
         sh """
-          docker build -t hello_there .
+          docker build -t docker_build .
         """
       }
     }
     stage("run") {
       steps {
         sh """
-          docker run --rm hello_there
+          docker run --rm docker_build
         """
       }
     }

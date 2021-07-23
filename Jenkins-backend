@@ -1,0 +1,27 @@
+pipeline {
+  agent any
+  tools {nodejs "nodejs"}  
+  stages {
+
+    stage('Build') {
+      steps {
+        dir("backend") {
+            sh "pwd"
+            sh 'npm install pm2 -g'
+            sh 'npm install'
+        }  
+      }
+    }
+    
+    stage('Start') {
+      steps {
+        dir("backend") {
+            sh "pwd"
+            sh 'pm2 stop ./bin/www'
+            sh 'BUILD_ID=dontKillMe pm2 start ./bin/www &'
+        }  
+      }
+    }
+
+  }
+}
