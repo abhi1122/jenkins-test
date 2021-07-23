@@ -1,0 +1,10 @@
+{
+    "app": {
+        "env": "development",
+        "name": "let's connect",
+        "description": "let's connect app is provide chat support between client and support agent",
+        "version": "1.01",
+        "host": "localhost:3009"
+    },
+    "secret": "5d9jwgzx3NvMOdzcbsBPJO9LVg1yF8bZ"
+}

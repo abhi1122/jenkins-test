@@ -1,16 +1,14 @@
-var express = require("express");
-var jwt = require("jsonwebtoken");
-var config = require("../config");
-var tableData = require("../table-data");
-var auth = require("../middleware/auth");
-var router = express.Router();
-var multer = require("multer");
-var upload = multer();
+const express = require("express");
+const multer = require("multer");
+const auth = require("../middleware/auth");
+const {
+  Support
+} = require("../handlers/v1/support");
 
-/* GET users listing. */
-router.get("/", function (req, res, next) {
-  res.send("respond with a resource");
-});
+const router = express.Router();
+const upload = multer();
+const supportHandler = new Support();
+
 
 /**
  * @swagger
@@ -39,52 +37,11 @@ router.get("/", function (req, res, next) {
  *             $ref: '#/definitions/supportList'
  */
 
-router.post("/login", upload.none(), auth.chkAuth, function (req, res, next) {
-  console.log(req.body, "req body");
-  const {
-    supportTeam
-  } = tableData;
-
-  if (req.body.id && req.body.password) {
-    let supportInfo = supportTeam.find((val) => val.id == req.body.id);
-    console.log(supportInfo, req.body.password, '....supportInfo');
-    if (supportInfo) {
-      if (supportInfo.password === req.body.password) {
-        const token = jwt.sign({
-            id: supportInfo.id,
-          },
-          config.secret, {
-            expiresIn: 86400,
-          }
-        );
-        let support = {
-          ...supportInfo
-        };
-        delete support.password;
-        support['token'] = token;
-        res.status(200).send({
-          message: "login successfully",
-          isAuthenticated: true,
-          data: support,
-        });
-      } else {
-        res.status(401).send({
-          message: "Invalid login credentials!",
-          isAuthenticated: false,
-        });
-      }
-    } else {
-      res.status(401).send({
-        message: "Invalid login credentials!",
-        isAuthenticated: false,
-      });
-    }
-  } else {
-    res.status(401).send({
-      message: "Enter User Credentials!",
-      isAuthenticated: false,
-    });
-  }
+router.post("/login", upload.none(), auth.chkAuth, async (req, res) => {
+  const response = await supportHandler.login(req);
+  res.status(response.status).send({
+    ...response
+  });
 });
 
 /**
@@ -109,10 +66,9 @@ router.get(
   "/get-support-team",
   upload.none(),
   auth.chkAuth,
-  (req, res, next) => {
-    const support = JSON.parse(JSON.stringify(tableData.supportTeam));
-    support.forEach(obj => delete obj.password);
-    res.send(support);
+  async (req, res, next) => {
+    const response = await supportHandler.supportList();
+    res.send(response);
   }
 );
 
@@ -138,8 +94,9 @@ router.get(
   "/get-support-qa",
   upload.none(),
   auth.chkAuth,
-  (req, res, next) => {
-    res.send(tableData.QaTable);
+  async (req, res, next) => {
+    const response = await supportHandler.getQa();
+    res.send(response);
   }
 );
 

@@ -1,7 +1,7 @@
 const axios = require("axios");
 
-axios.defaults.baseURL = 'http://localhost:3003';
-axios.defaults.headers.common['Authorization'] = 'Bearer 5d9jwgzx3NvMOdzcbsBPJO9LVg1yF8bZ';
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+axios.defaults.headers.common['Authorization'] = `Bearer ${process.env.REACT_APP_API_KEY}`;
 axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
 
 const get = async ({
