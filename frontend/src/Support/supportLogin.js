@@ -1,11 +1,9 @@
 import React from "react";
-import { createStyles, makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
-import ImageIcon from "@material-ui/icons/Image";
 import Divider from "@material-ui/core/Divider";
 import TextField from "@material-ui/core/TextField";
 import Fab from "@material-ui/core/Fab";
@@ -17,6 +15,8 @@ import Grid from "@material-ui/core/Grid";
 import { get, post } from "../helper/service";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import Header from "../Common/header";
+import useStyles from "./support-chat-css";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -26,20 +26,17 @@ const SupportLogin = ({ socket }) => {
   const [supportList, setSupportList] = useState([]);
   const [loginError, setLoginError] = useState(false);
   const [supportPassword, setSupportPassword] = useState({});
-  const { innerWidth: width, innerHeight: height } = window;
 
   useEffect(() => {
     const loginUser = localStorage.getItem("loginUser");
     if (loginUser) {
       const user = JSON.parse(loginUser);
       if (user && user.token) {
-        console.log("enter if");
         history.push("/support/chat");
       }
     }
 
     get({ url: "/support/get-support-team" }).then((items) => {
-      console.log(items);
       setSupportList(items.data);
     });
 
@@ -48,17 +45,6 @@ const SupportLogin = ({ socket }) => {
     });
   }, []);
 
-  const useStyles = makeStyles((theme) =>
-    createStyles({
-      root: {
-        width: "100%",
-        maxWidth: 600,
-        backgroundColor: "#F8F9FA",
-        borderRadius: "5px",
-        padding: "10px 20px 30px 30px",
-      },
-    })
-  );
   const history = useHistory();
 
   const login = (userData) => {
@@ -77,7 +63,6 @@ const SupportLogin = ({ socket }) => {
         history.push("/support/chat");
       })
       .catch(() => {
-        console.log("error...");
         setLoginError(true);
       });
   };
@@ -98,11 +83,7 @@ const SupportLogin = ({ socket }) => {
       direction="row"
       justifyContent="center"
       alignItems="center"
-      style={{
-        backgroundColor: "#14A769",
-        backgroundImage: "linear-gradient(#14A769, #38B88E)",
-        height: height,
-      }}
+      className={classes.mainLogin}
     >
       <Snackbar
         open={loginError}
@@ -114,16 +95,9 @@ const SupportLogin = ({ socket }) => {
           <b>Login details you entered not matched with our record !</b>
         </Alert>
       </Snackbar>
-      <List className={classes.root}>
-        <img
-          src="./logo.png"
-          alt="loading..."
-          style={{ marginTop: "20px" }}
-        ></img>
-
-        <h3 style={{ marginBottom: "50px", color: "rgba(68, 68, 68, 0.75)" }}>
-          Login as Support Agent
-        </h3>
+      <List className={classes.rootLogin}>
+        <Header />
+        <h3 className={classes.h3HeadingLogin}>Login as Support Agent</h3>
         {supportList.map((item, index) => (
           <>
             <ListItem key={index}>

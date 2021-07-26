@@ -1,14 +1,11 @@
 const express = require("express");
 const multer = require("multer");
 const auth = require("../middleware/auth");
-const {
-  Support
-} = require("../handlers/v1/support");
+const { Support } = require("../handlers/v1/support");
 
 const router = express.Router();
 const upload = multer();
 const supportHandler = new Support();
-
 
 /**
  * @swagger
@@ -40,7 +37,7 @@ const supportHandler = new Support();
 router.post("/login", upload.none(), auth.chkAuth, async (req, res) => {
   const response = await supportHandler.login(req);
   res.status(response.status).send({
-    ...response
+    ...response,
   });
 });
 
@@ -116,7 +113,6 @@ module.exports = router;
  *       images:
  *         type: string
  */
-
 
 /**
  * @swagger

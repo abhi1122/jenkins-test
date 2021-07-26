@@ -37,6 +37,7 @@ const StyledBadge = withStyles((theme) => ({
 
 export { StyledBadge };
 
+const { innerHeight: height } = window;
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
@@ -98,6 +99,29 @@ const useStyles = makeStyles((theme) =>
       fontSize: "30px",
       color: "rgb(220, 0, 78)",
       cursor: "pointer",
+    },
+    inputContainer: {
+      padding: "10px",
+      backgroundColor: "#f1f0f0",
+      position: "fixed",
+      bottom: "0px",
+      width: "58%",
+    },
+    rootLogin: {
+      width: "100%",
+      maxWidth: 600,
+      backgroundColor: "#F8F9FA",
+      borderRadius: "5px",
+      padding: "10px 20px 30px 30px",
+    },
+    mainLogin: {
+      backgroundColor: "#14A769",
+      backgroundImage: "linear-gradient(#14A769, #38B88E)",
+      height: height,
+    },
+    h3HeadingLogin: {
+      marginBottom: "50px",
+      color: "rgba(68, 68, 68, 0.75)",
     },
   })
 );

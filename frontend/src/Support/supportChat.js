@@ -32,8 +32,8 @@ export default function SupportChat({ socket }) {
   const [play] = useSound(boopSfx, { volume: 0.1 });
   const buttonRef = useRef();
   const messagesEndRef = useRef(null);
+
   const scrollToBottom = () => {
-    console.log("calll scrollToBottom");
     setTimeout(
       () => messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }),
       0
@@ -81,14 +81,12 @@ export default function SupportChat({ socket }) {
           newLastMessageTime = { ...old };
           return old;
         });
-        console.log("checking for old chats...", newLastMessageTime);
         const offlineCustomer = Object.keys(newLastMessageTime).filter(
           (val) => {
             const startTime = newLastMessageTime[val];
             const endTime = new Date();
             const difference = endTime.getTime() - startTime.getTime();
             const resultInMinutes = Math.round(difference / 60000);
-            console.log(val, "========", resultInMinutes);
             if (resultInMinutes > 1) {
               return val;
             }
@@ -107,11 +105,9 @@ export default function SupportChat({ socket }) {
       }, 20 * 1000);
 
       setChat((oldChat) => {
-        console.log(newUserId, "...data");
         let newChat = [];
         if (oldChat[newUserId]) {
           let { message = [] } = oldChat[newUserId];
-          console.log(message, "..message");
           newChat = {
             ...data,
             message: [...message, { text: data.message, class: "left" }],
@@ -123,11 +119,8 @@ export default function SupportChat({ socket }) {
             message: [{ text: data.message, class: "left" }],
           };
         }
-        console.log(newChat, "...newChat");
         return { ...oldChat, [newUserId]: newChat };
       });
-
-      console.log(chatList, "...chatList", unread);
 
       scrollToBottom();
     });
@@ -140,7 +133,6 @@ export default function SupportChat({ socket }) {
   };
 
   const sendMessage = (messageText = chatText) => {
-    console.log("sent message call");
     if (messageText === "") {
       return false;
     }
@@ -157,7 +149,6 @@ export default function SupportChat({ socket }) {
       const newSendTo = sendToName;
       const { message = [] } = oldChat[newSendTo];
       let newChat = [];
-      console.log(message, "...message");
       newChat = {
         message: [...message, { text: messageText, class: "right" }],
       };
@@ -375,16 +366,7 @@ export default function SupportChat({ socket }) {
             </List>
           </div>
           {sendTo && (
-            <Grid
-              container
-              style={{
-                padding: "10px",
-                backgroundColor: "#f1f0f0",
-                position: "fixed",
-                bottom: "0px",
-                width: "75%",
-              }}
-            >
+            <Grid container className={classes.inputContainer}>
               <Divider />
               <Grid item xs={11}>
                 <input
