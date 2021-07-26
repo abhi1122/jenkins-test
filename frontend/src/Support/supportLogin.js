@@ -14,38 +14,34 @@ import { useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 import Grid from "@material-ui/core/Grid";
-import { get, post } from '../helper/service';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-
+import { get, post } from "../helper/service";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 const SupportLogin = ({ socket }) => {
-
   const [supportList, setSupportList] = useState([]);
   const [loginError, setLoginError] = useState(false);
   const [supportPassword, setSupportPassword] = useState({});
   const { innerWidth: width, innerHeight: height } = window;
 
   useEffect(() => {
-
-    const loginUser = localStorage.getItem('loginUser');
+    const loginUser = localStorage.getItem("loginUser");
     if (loginUser) {
       const user = JSON.parse(loginUser);
       if (user && user.token) {
-        console.log('enter if');
+        console.log("enter if");
         history.push("/support/chat");
       }
     }
 
-    get({ url: "/support/get-support-team" })
-      .then((items) => {
-        console.log(items);
-        setSupportList(items.data);
-      });
+    get({ url: "/support/get-support-team" }).then((items) => {
+      console.log(items);
+      setSupportList(items.data);
+    });
 
     socket.on("supportLoginCall", (data) => {
       setSupportList(supportList.filter((val) => val.id !== data.id));
@@ -66,8 +62,10 @@ const SupportLogin = ({ socket }) => {
   const history = useHistory();
 
   const login = (userData) => {
-
-    post({ url: '/support/login', data: { ...userData, password: supportPassword[userData.id] } })
+    post({
+      url: "/support/login",
+      data: { ...userData, password: supportPassword[userData.id] },
+    })
       .then((response) => {
         localStorage.setItem(
           "loginUser",
@@ -77,17 +75,16 @@ const SupportLogin = ({ socket }) => {
           })
         );
         history.push("/support/chat");
-
-      }).catch(() => {
-        console.log('error...');
+      })
+      .catch(() => {
+        console.log("error...");
         setLoginError(true);
       });
-
   };
 
   const handleClose = () => {
     setLoginError(false);
-  }
+  };
 
   const handleChange = (event, id) => {
     setSupportPassword({ [id]: event.target.value });
@@ -107,24 +104,32 @@ const SupportLogin = ({ socket }) => {
         height: height,
       }}
     >
-      <Snackbar open={loginError} autoHideDuration={10000} onClose={handleClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+      <Snackbar
+        open={loginError}
+        autoHideDuration={10000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
         <Alert severity="error" onClose={handleClose}>
           <b>Login details you entered not matched with our record !</b>
         </Alert>
       </Snackbar>
       <List className={classes.root}>
-        <img src="./logo.png" alt="loading..." style={{ marginTop: '20px' }}></img>
+        <img
+          src="./logo.png"
+          alt="loading..."
+          style={{ marginTop: "20px" }}
+        ></img>
 
-        <h3 style={{ marginBottom: "50px", color: 'rgba(68, 68, 68, 0.75)' }}>Login as Support Agent</h3>
+        <h3 style={{ marginBottom: "50px", color: "rgba(68, 68, 68, 0.75)" }}>
+          Login as Support Agent
+        </h3>
         {supportList.map((item, index) => (
           <>
             <ListItem key={index}>
               <ListItemAvatar>
                 <Avatar>
-                  <Avatar
-                    alt=""
-                    src={item.image}
-                  />
+                  <Avatar alt="" src={item.image} />
                 </Avatar>
               </ListItemAvatar>
               <ListItemText primary={item.name} secondary={item.id} />

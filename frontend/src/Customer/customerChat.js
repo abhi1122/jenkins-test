@@ -20,15 +20,15 @@ import Fab from "@material-ui/core/Fab";
 import SendIcon from "@material-ui/icons/Send";
 import useSound from "use-sound";
 import boopSfx from "../sound/sound.mp3";
-import Chip from '@material-ui/core/Chip';
-import LiveHelp from '@material-ui/icons/HelpOutline';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/Button';
-import { get } from '../helper/service';
+import Chip from "@material-ui/core/Chip";
+import LiveHelp from "@material-ui/icons/HelpOutline";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Button from "@material-ui/core/Button";
+import { get } from "../helper/service";
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -125,7 +125,7 @@ const CustomerChat = ({ socket }) => {
 
   const messagesEndRef = useRef(null);
   const scrollToBottom = () => {
-    console.log('calll scrollToBottom');
+    console.log("calll scrollToBottom");
     setTimeout(
       () => messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }),
       0
@@ -161,8 +161,19 @@ const CustomerChat = ({ socket }) => {
     const resultInMinutes = Math.round(difference / 60000);
     console.log(resultInMinutes, "..resultInMinutes");
     if (resultInMinutes > 5) {
-      console.log(support, userNameState, '...autoLogout', newSupport, newUserNameState, socket.id);
-      socket.emit('sentMessageLogoutToRoom', { sendTo: newSupport.id, name: newUserNameState, id: socket.id });
+      console.log(
+        support,
+        userNameState,
+        "...autoLogout",
+        newSupport,
+        newUserNameState,
+        socket.id
+      );
+      socket.emit("sentMessageLogoutToRoom", {
+        sendTo: newSupport.id,
+        name: newUserNameState,
+        id: socket.id,
+      });
       history.push({
         pathname: "/customer",
       });
@@ -171,12 +182,20 @@ const CustomerChat = ({ socket }) => {
 
   useEffect(() => {
     const { userName = null } = location.state;
-    console.log('user effect call....');
+    console.log("user effect call....");
     if (!userName) {
-      console.log('enter if....', userName)
-      const { socketId, id, userName: customerName } = JSON.parse(localStorage.getItem('customer'));
-      console.log('logout call....', socketId, id, customerName);
-      socket.emit('sentMessageLogoutToRoom', { sendTo: id, name: customerName, id: socketId });
+      console.log("enter if....", userName);
+      const {
+        socketId,
+        id,
+        userName: customerName,
+      } = JSON.parse(localStorage.getItem("customer"));
+      console.log("logout call....", socketId, id, customerName);
+      socket.emit("sentMessageLogoutToRoom", {
+        sendTo: id,
+        name: customerName,
+        id: socketId,
+      });
       history.push({
         pathname: "/customer",
       });
@@ -185,10 +204,10 @@ const CustomerChat = ({ socket }) => {
     window.history.replaceState({ state: {} }, document.title);
 
     setUserName(userName);
-    socket.emit('userLogin', { name: userNameState, id: socket.id });
+    socket.emit("userLogin", { name: userNameState, id: socket.id });
 
-    socket.on('assignSupport', (data) => {
-      console.log('assignSupport....', data);
+    socket.on("assignSupport", (data) => {
+      console.log("assignSupport....", data);
       if (!data.id) {
         setIsSupportAvailable(true);
         // alert("Sorry! No Support is available this time.");
@@ -196,11 +215,18 @@ const CustomerChat = ({ socket }) => {
         //   pathname: "/customer",
         // });
       }
-      localStorage.setItem('customer', JSON.stringify({ ...data, socketId: socket.id, userName }));
+      localStorage.setItem(
+        "customer",
+        JSON.stringify({ ...data, socketId: socket.id, userName })
+      );
       setSupport(data);
       setTimeout(() => {
-        setChat((oldChat) => [...oldChat,
-        { text: 'Hi, Welcome to Quick Support.How can I help you today?', class: "left" }
+        setChat((oldChat) => [
+          ...oldChat,
+          {
+            text: "Hi, Welcome to Quick Support.How can I help you today?",
+            class: "left",
+          },
         ]);
       }, 700);
     });
@@ -217,22 +243,19 @@ const CustomerChat = ({ socket }) => {
 
     socket.on("disconnect", () => {
       console.log(socket.id); // undefined
-      alert('u call disconnect...')
+      alert("u call disconnect...");
     });
 
-    get({ url: "/support/get-support-qa" })
-      .then((items) => {
-        console.log(items);
-        setQa(items.data);
-      });
-
+    get({ url: "/support/get-support-qa" }).then((items) => {
+      console.log(items);
+      setQa(items.data);
+    });
 
     const timer = setInterval(autoLogout, 20 * 1000);
 
-    window.addEventListener('beforeunload', (event) => {
+    window.addEventListener("beforeunload", (event) => {
       event.returnValue = `Are you sure you want to leave chat?`;
     });
-
 
     // window.onbeforeunload = confirmExit;
     // function confirmExit() {
@@ -245,14 +268,13 @@ const CustomerChat = ({ socket }) => {
 
     return () => {
       clearInterval(timer);
-      window.removeEventListener("beforeunload", () => { });
+      window.removeEventListener("beforeunload", () => {});
     };
-
   }, []);
 
   const sendMessage = () => {
     console.log("sent message call", userNameState);
-    if (chatText === '') {
+    if (chatText === "") {
       return false;
     }
     socket.emit("sentMessageRoom", {
@@ -284,7 +306,11 @@ const CustomerChat = ({ socket }) => {
   };
 
   const sendQa = (val) => {
-    setChat(oldChat => [...oldChat, { text: val.qus, class: 'right' }, { text: val.ans, class: 'left' }]);
+    setChat((oldChat) => [
+      ...oldChat,
+      { text: val.qus, class: "right" },
+      { text: val.ans, class: "left" },
+    ]);
     setlastMessageTime(new Date());
     scrollToBottom();
   };
@@ -293,25 +319,35 @@ const CustomerChat = ({ socket }) => {
     history.push({
       pathname: "/customer",
     });
-  }
+  };
 
   const LoadQuickQa = () => {
     return QA.map((val, i) => {
-      return (<Grid
-        container
-        direction="row"
-        justifyContent="flex-start"
-        alignItems="flex-start"
-      ><Chip
-          icon={<LiveHelp />}
-          label={val.qus}
-          clickable
-          onClick={() => sendQa(val)}
-          style={{ fontWeight: 'bold', fontSize: '15px', margin: '20px 20px 0 0', width: '80%' }}
-          color="primary"
-        /></Grid>);
-    })
-  }
+      return (
+        <Grid
+          container
+          direction="row"
+          justifyContent="flex-start"
+          alignItems="flex-start"
+        >
+          <Chip
+            icon={<LiveHelp />}
+            label={val.qus}
+            clickable
+            onClick={() => sendQa(val)}
+            style={{
+              fontWeight: "bold",
+              fontSize: "15px",
+              margin: "20px 20px 0 0",
+              width: "80%",
+            }}
+            title={val.qus}
+            color="primary"
+          />
+        </Grid>
+      );
+    });
+  };
 
   const classes = useStyles();
   console.log(support, userNameState, "...support in render");
@@ -322,7 +358,9 @@ const CustomerChat = ({ socket }) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">Sorry support not available at this time.</DialogTitle>
+        <DialogTitle id="alert-dialog-title">
+          Sorry support not available at this time.
+        </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Support is available 8am to 5pm monday to friday only.
@@ -339,7 +377,12 @@ const CustomerChat = ({ socket }) => {
         ref={buttonRef}
         style={{ display: "none" }}
       ></button>
-      <Grid container component={Paper} className={classes.chatSection} style={{ height: '100%' }}>
+      <Grid
+        container
+        component={Paper}
+        className={classes.chatSection}
+        style={{ height: "100%" }}
+      >
         <Grid
           item
           xs={3}
@@ -390,15 +433,12 @@ const CustomerChat = ({ socket }) => {
               }}
               variant="dot"
             >
-              <Avatar
-                alt="Support"
-                src={support.image}
-              />
+              <Avatar alt="Support" src={support.image} />
             </StyledBadge>
             <span style={{ paddingLeft: "10px" }}>{support.name}</span>
             <ExitToAppIcon className={classes.logoutClass} />
           </Grid>
-          <div style={{ overflowX: 'scroll', height: '85%' }}>
+          <div>
             <List className={classes.messageArea}>
               {chatList.map((val, i) => {
                 return (
@@ -426,10 +466,15 @@ const CustomerChat = ({ socket }) => {
               })}
             </List>
           </div>
-          <Divider />
           <Grid
             container
-            style={{ padding: "10px", backgroundColor: "#f1f0f0" }}
+            style={{
+              padding: "10px",
+              backgroundColor: "#f1f0f0",
+              position: "fixed",
+              bottom: "0px",
+              width: "75%",
+            }}
           >
             <Grid item xs={11}>
               <input
