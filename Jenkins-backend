@@ -17,7 +17,7 @@ pipeline {
       steps {
         dir("backend") {
             sh "pwd"
-            sh 'npm start'
+            sh 'BUILD_ID=dontKillMe pm2 start ./bin/www &'
         }  
       }
     }
