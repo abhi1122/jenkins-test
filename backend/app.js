@@ -13,11 +13,13 @@ var letsConnect = require("lets-connect-socket");
 var userData = require("./src/table-data/index");
 
 const config = require("config");
-console.log(config.get("app.socketPort"), '...port');
-letsConnect.connect({
-  users: userData.supportTeam,
-  port: config.get("app.socketPort"),
-});
+
+if (process.env.NODE_ENV !== 'test') {
+  letsConnect.connect({
+    users: userData.supportTeam,
+    port: config.get("app.socketPort"),
+  });
+}
 
 app.use(cors());
 app.use(logger("dev"));
