@@ -2,6 +2,15 @@ pipeline {
   agent any
   tools {nodejs "nodejs"}  
   stages {
+  
+  stage('Test') {
+      steps {
+        dir("backend") {
+            sh "pwd"
+            sh 'npm test'
+        }  
+      }
+    }
 
     stage('Build') {
       steps {
