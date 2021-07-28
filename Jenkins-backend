@@ -3,22 +3,22 @@ pipeline {
   tools {nodejs "nodejs"}  
   stages {
   
-  stage('Test') {
-      steps {
-        dir("backend") {
-            sh "pwd"
-            sh 'npm install -g jest'
-            sh 'npm test'
-        }  
-      }
-    }
-
     stage('Build') {
       steps {
         dir("backend") {
             sh "pwd"
+            sh 'npm install -g jest'
             sh 'npm install pm2 -g'
             sh 'npm install'
+        }  
+      }
+    }
+    
+   stage('Test') {
+      steps {
+        dir("backend") {
+            sh "pwd"
+            sh 'npm test'
         }  
       }
     }
