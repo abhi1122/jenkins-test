@@ -7,7 +7,7 @@ pipeline {
       steps {
         dir("frontend") {
             sh "pwd"
-            sh 'npm install'
+            sh 'yarn'
         }  
       }
     }
@@ -16,7 +16,7 @@ pipeline {
       steps {
         dir("frontend") {
             sh "pwd"
-            sh 'npm start'
+            sh 'yarn start dev'
         }  
       }
     }
