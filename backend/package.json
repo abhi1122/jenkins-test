@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "cross-env PORT=3009 node ./bin/www",
-    "start:qa": "cross-env NODE_ENV=qa PORT=3009 node ./bin/www",
-    "start:prod": "cross-env NODE_ENV=production PORT=3009 node ./bin/www",
-    "start:dev": "cross-env NODE_ENV=development PORT=3009 node ./bin/www",
+    "start": "cross-env PORT=3007 node ./bin/www",
+    "start:qa": "cross-env NODE_ENV=qa PORT=3007 node ./bin/www",
+    "start:prod": "cross-env NODE_ENV=production PORT=3007 node ./bin/www",
+    "start:dev": "cross-env NODE_ENV=development PORT=3007 node ./bin/www",
     "test": "jest"
   },
   "dependencies": {

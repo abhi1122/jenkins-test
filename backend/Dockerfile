@@ -8,6 +8,6 @@ RUN npm install
 
 COPY . ./backend/
 
-EXPOSE 3007
+EXPOSE 3007 3009
 
 CMD ["npm", "run", "start"]

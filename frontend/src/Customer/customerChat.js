@@ -243,10 +243,11 @@ const CustomerChat = ({ socket }) => {
         </DialogActions>
       </Dialog>
       <button
+        value={lastMessageTime}
         onClick={play}
         ref={buttonRef}
         style={{ display: "none" }}
-      >{lastMessageTime}</button>
+      ></button>
       <Grid
         container
         component={Paper}

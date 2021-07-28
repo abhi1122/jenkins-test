@@ -229,10 +229,11 @@ export default function SupportChat({ socket }) {
   return (
     <div style={{ height: window.innerHeight }}>
       <button
+        value={messageTime}
         onClick={play}
         ref={buttonRef}
         style={{ display: "none" }}
-      >{messageTime}</button>
+      ></button>
 
       <Grid
         container
