@@ -2,14 +2,20 @@ pipeline {
   agent any
   tools {nodejs "nodejs"}  
   stages {
+
+    stage('Start') {
+      steps {
+        sh "pwd"
+        sh 'npm install --g cross-env'
+        sh 'npm install -g jest'
+        sh 'npm install pm2 -g' 
+      }
+    }
   
     stage('Build') {
       steps {
         dir("backend") {
             sh "pwd"
-            sh 'npm install --g cross-env'
-            sh 'npm install -g jest'
-            sh 'npm install pm2 -g'
             sh 'npm install'
         }  
       }
@@ -32,6 +38,10 @@ pipeline {
             sh 'BUILD_ID=dontKillMe cross-env NODE_ENV=production PORT=3007 pm2 start ./bin/www'
         }  
       }
+    }
+
+    stage('Stop') {
+       echo 'Lets-connect app backend is running on http://localhost:3007'
     }
 
   }
