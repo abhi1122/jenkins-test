@@ -149,8 +149,9 @@ const CustomerChat = ({ socket }) => {
 
     return () => {
       clearInterval(timer);
-      window.removeEventListener("beforeunload", () => {});
+      window.removeEventListener("beforeunload", () => { });
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const sendMessage = () => {
@@ -245,7 +246,7 @@ const CustomerChat = ({ socket }) => {
         onClick={play}
         ref={buttonRef}
         style={{ display: "none" }}
-      ></button>
+      >{lastMessageTime}</button>
       <Grid
         container
         component={Paper}

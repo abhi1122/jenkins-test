@@ -43,6 +43,7 @@ const SupportLogin = ({ socket }) => {
     socket.on("supportLoginCall", (data) => {
       setSupportList(supportList.filter((val) => val.id !== data.id));
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const history = useHistory();

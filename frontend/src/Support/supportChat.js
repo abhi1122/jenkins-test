@@ -90,10 +90,11 @@ export default function SupportChat({ socket }) {
             if (resultInMinutes > 1) {
               return val;
             }
+            return null;
           }
         );
 
-        offlineCustomer.map((customerName) => {
+        offlineCustomer.forEach((customerName) => {
           const id = customerName.split("##__")[0];
           setsendTo((old) => (old === id ? null : old));
           setsendToName((old) => (old === customerName ? null : old));
@@ -126,6 +127,7 @@ export default function SupportChat({ socket }) {
     });
 
     socket.emit("supportLogin", { ...JSON.parse(loginUser) });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (event) => {
@@ -230,7 +232,7 @@ export default function SupportChat({ socket }) {
         onClick={play}
         ref={buttonRef}
         style={{ display: "none" }}
-      ></button>
+      >{messageTime}</button>
 
       <Grid
         container
@@ -300,11 +302,11 @@ export default function SupportChat({ socket }) {
                         chatList[key]["message"].length - 1
                       ]["text"].length > 25
                         ? chatList[key]["message"][
-                            chatList[key]["message"].length - 1
-                          ]["text"].substring(0, 25) + "...."
+                          chatList[key]["message"].length - 1
+                        ]["text"].substring(0, 25) + "...."
                         : chatList[key]["message"][
-                            chatList[key]["message"].length - 1
-                          ]["text"]
+                        chatList[key]["message"].length - 1
+                        ]["text"]
                     }
                   />
                   {unread[key] > 0 && (

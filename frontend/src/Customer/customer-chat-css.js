@@ -1,8 +1,6 @@
 import {
   makeStyles,
-  createStyles,
   withStyles,
-  theme,
 } from "@material-ui/core/styles";
 import Badge from "@material-ui/core/Badge";
 
@@ -35,9 +33,13 @@ const StyledBadge = withStyles((theme) => ({
   },
 }))(Badge);
 
-export { StyledBadge };
+export {
+  StyledBadge
+};
 
-const { innerHeight: height } = window;
+const {
+  innerHeight: height
+} = window;
 const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,

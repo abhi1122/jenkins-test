@@ -2,7 +2,6 @@ import {
   makeStyles,
   createStyles,
   withStyles,
-  theme,
 } from "@material-ui/core/styles";
 import Badge from "@material-ui/core/Badge";
 
@@ -35,9 +34,13 @@ const StyledBadge = withStyles((theme) => ({
   },
 }))(Badge);
 
-export { StyledBadge };
+export {
+  StyledBadge
+};
 
-const { innerHeight: height } = window;
+const {
+  innerHeight: height
+} = window;
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
@@ -62,8 +65,7 @@ const useStyles = makeStyles((theme) =>
       borderRight: "1px solid #e0e0e0",
       backgroundColor: "#14A769",
       color: "white",
-      backgroundImage:
-        "linear-gradient(to top right, #14a769 30%, #39b98f 100%)",
+      backgroundImage: "linear-gradient(to top right, #14a769 30%, #39b98f 100%)",
     },
     messageArea: {
       height: "70vh",
