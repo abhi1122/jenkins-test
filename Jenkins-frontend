@@ -8,6 +8,7 @@ pipeline {
         dir("frontend") {
             sh "pwd"
             sh 'npm install'
+            sh 'npm run build'
         }  
       }
     }
@@ -16,7 +17,7 @@ pipeline {
       steps {
         dir("frontend") {
             sh "pwd"
-            sh 'npm start'
+            sh 'npm run start-prod'
         }  
       }
     }
