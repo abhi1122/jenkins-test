@@ -34,9 +34,7 @@ pipeline {
       steps {
         dir("backend") {
             sh "pwd"
-            sh "pm2 kill"
-            sh 'BUILD_ID=dontKillMe cross-env NODE_ENV=production PORT=3007 pm2 start ./bin/www'
-            sh "pm2 list"
+            sh "npm start"
         }  
       }
     }
