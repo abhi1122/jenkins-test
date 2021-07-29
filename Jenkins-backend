@@ -40,9 +40,5 @@ pipeline {
       }
     }
 
-    stage('Stop') {
-       echo 'Lets-connect app backend is running on http://localhost:3007'
-    }
-
   }
 }
