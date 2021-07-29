@@ -5,9 +5,37 @@ pipeline {
 
     stage('Start') {
       steps {
-        bat 'npm install --g cross-env'
-        bat 'npm install -g jest'
-        bat 'npm install pm2 -g' 
+        sh "pwd"
+        sh 'npm install --g cross-env'
+        sh 'npm install -g jest'
+        sh 'npm install pm2 -g' 
+      }
+    }
+  
+    stage('Build') {
+      steps {
+        dir("backend") {
+            sh "pwd"
+            sh 'npm install'
+        }  
+      }
+    }
+    
+   stage('Test') {
+      steps {
+        dir("backend") {
+            sh "pwd"
+            sh 'npm test'
+        }  
+      }
+    }
+    
+    stage('Run') {
+      steps {
+        dir("backend") {
+            sh "pwd"
+            sh 'BUILD_ID=dontKillMe cross-env NODE_ENV=production PORT=3007 pm2 start ./bin/www'
+        }  
       }
     }
 
