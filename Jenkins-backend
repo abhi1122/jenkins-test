@@ -5,10 +5,10 @@ pipeline {
 
     stage('Start') {
       steps {
-        sh "pwd"
-        sh 'npm install --g cross-env'
-        sh 'npm install -g jest'
-        sh 'npm install pm2 -g' 
+        bat "pwd"
+        bat 'npm install --g cross-env'
+        bat 'npm install -g jest'
+        bat 'npm install pm2 -g' 
       }
     }
 
