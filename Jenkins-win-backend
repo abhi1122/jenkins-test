@@ -1,0 +1,40 @@
+pipeline {
+  agent any
+  tools {nodejs "nodejs"}  
+  stages {
+
+    stage('Start') {
+      steps {
+        bat 'npm install --g cross-env'
+        bat 'npm install -g jest'
+        bat 'npm install pm2 -g' 
+      }
+    }
+  
+    stage('Build') {
+      steps {
+        dir("backend") {
+            bat 'npm install'
+        }  
+      }
+    }
+    
+   stage('Test') {
+      steps {
+        dir("backend") {
+            bat 'npm test'
+        }  
+      }
+    }
+    
+    stage('Run') {
+      steps {
+        dir("backend") {
+            sh "pwd"
+            sh 'BUILD_ID=dontKillMe cross-env NODE_ENV=production PORT=3007 pm2 start ./bin/www'
+        }  
+      }
+    }
+
+  }
+}
