@@ -1,0 +1,24 @@
+pipeline {
+  agent any
+  tools {nodejs "nodejs"}  
+  stages {
+
+    stage('Build') {
+      steps {
+        dir("frontend") {
+            bat 'npm install'
+            bat 'npm run build'
+        }  
+      }
+    }
+    
+    stage('Start') {
+      steps {
+        dir("frontend") {
+            bat 'npm run start-prod'
+        }  
+      }
+    }
+
+  }
+}
