@@ -9,6 +9,7 @@ pipeline {
         sh 'npm install --g cross-env'
         sh 'npm install -g jest'
         sh 'npm install -g pm2' 
+        sh 'npm install pm2-windows-startup -g'
       }
     }
   
