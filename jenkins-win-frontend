@@ -6,9 +6,9 @@ pipeline {
     stage('Build') {
       steps {
         dir("frontend") {
-            bat 'yarn add env-cmd -g'
-            bat 'yarn'
-            bat 'yarn build'
+            bat 'npm install env-cmd -g'
+            bat 'npm install'
+            bat 'npm run build'
         }  
       }
     }
@@ -16,7 +16,7 @@ pipeline {
     stage('Start') {
       steps {
         dir("frontend") {
-            bat 'yarn run start-prod'
+            bat 'npm run start-prod'
         }  
       }
     }
