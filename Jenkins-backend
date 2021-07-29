@@ -8,7 +8,7 @@ pipeline {
         sh "pwd"
         sh 'npm install --g cross-env'
         sh 'npm install -g jest'
-        sh 'npm install forever -g' 
+        sh 'npm install pm2 -g' 
       }
     }
   
@@ -34,7 +34,8 @@ pipeline {
       steps {
         dir("backend") {
             sh "pwd"
-            sh 'BUILD_ID=dontKillMe cross-env NODE_ENV=production PORT=3007 forever start ./bin/www'
+            sh 'BUILD_ID=dontKillMe cross-env NODE_ENV=production PORT=3007 pm2 start ./bin/www'
+            sh "pm2 save"
         }  
       }
     }
