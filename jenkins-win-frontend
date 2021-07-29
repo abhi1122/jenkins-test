@@ -15,7 +15,7 @@ pipeline {
     stage('Start') {
       steps {
         dir("frontend") {
-            bat 'npm run start-prod-win'
+            bat 'npm start'
         }  
       }
     }
