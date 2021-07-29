@@ -6,6 +6,7 @@ pipeline {
     stage('Build') {
       steps {
         dir("frontend") {
+            bat 'npm install env-cmd -g'
             bat 'npm install'
             bat 'npm run build'
         }  
