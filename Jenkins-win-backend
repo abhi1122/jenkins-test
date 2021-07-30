@@ -31,6 +31,7 @@ pipeline {
       steps {
         dir("backend") {
             bat 'cross-env NODE_ENV=production PORT=3007 pm2 start ./bin/www'
+            bat 'pm2 kill'
         }  
       }
     }
