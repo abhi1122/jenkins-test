@@ -32,7 +32,7 @@ pipeline {
       steps {
         dir("backend") {
             sh 'pm2 kill'
-            sh "BUILD_ID=dontKillMe pm2 start ./bin/www"
+            sh "pm2 start ./bin/www"
             sh 'pm2 list'
             sh 'pm2 ping'
         }  
