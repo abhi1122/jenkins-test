@@ -14,8 +14,7 @@ pipeline {
     stage('Run') {
       steps {
         dir("backend") {
-            sh "export BUILD_ID=dontKillMePlease"
-            sh "BUILD_ID=dontKillMe forever start ./bin/www &"
+            sh "BUILD_ID=dontKillMe forever start ./bin/www"
         }  
       }
     }
