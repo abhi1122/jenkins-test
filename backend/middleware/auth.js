@@ -14,7 +14,6 @@ var chkAuth = function (req, res, next) {
 };
 
 const verifyToken = (token) => {
-  console.log(token, "...token");
   try {
     if (token === config.get("secret")) {
       return true;
