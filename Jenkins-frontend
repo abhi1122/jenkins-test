@@ -6,7 +6,7 @@ pipeline {
     stage('Build') {
       steps {
         dir("frontend") {
-            sh 'npm clean-install'
+            sh 'npm install --save core-js@^3'
             sh 'npm install'
             sh 'npm run build'
         }  
