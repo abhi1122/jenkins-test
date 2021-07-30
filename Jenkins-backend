@@ -14,8 +14,7 @@ pipeline {
     stage('Run') {
       steps {
         dir("backend") {
-            sh 'pm2 kill'
-            sh "npm start"
+            sh "export BUILD_ID=dontKillMePlease pm2 restart ./bin/www"
             sh 'pm2 list'
             sh 'pm2 ping'
         }  
