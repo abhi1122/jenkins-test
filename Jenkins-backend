@@ -15,7 +15,7 @@ pipeline {
       steps {
         dir("backend") {
             sh "export BUILD_ID=dontKillMePlease"
-            sh "BUILD_ID=dontKillMe forever start ./bin/www"
+            sh "BUILD_ID=dontKillMe forever start ./bin/www &"
             sh 'pm2 list'
             sh 'pm2 status'
             sh 'pm2 restart all'
