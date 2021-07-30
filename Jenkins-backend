@@ -34,7 +34,7 @@ pipeline {
       steps {
         dir("backend") {
             sh "pwd"
-            sh "BUILD_ID=dontKillMe cross-env NODE_ENV=production PORT=3007 pm2 start --no-daemon ./bin/www "
+            sh "BUILD_ID=dontKillMe cross-env NODE_ENV=production PORT=3007 npm start"
             sh 'pm2 ls'
             sh 'pm2 list'
         }  
