@@ -8,14 +8,13 @@ pipeline {
         sh "pwd"
         sh 'npm install --g cross-env'
         sh 'npm install -g jest'
-        sh 'npm install nodemon -g' 
+        sh 'npm install pm2 -g' 
       }
     }
   
     stage('Build') {
       steps {
         dir("backend") {
-            sh "pwd"
             sh 'npm install'
         }  
       }
@@ -24,7 +23,6 @@ pipeline {
    stage('Test') {
       steps {
         dir("backend") {
-            sh "pwd"
             sh 'npm test'
         }  
       }
@@ -33,7 +31,7 @@ pipeline {
     stage('Run') {
       steps {
         dir("backend") {
-            sh "pwd"
+            sh 'pm2 kill'
             sh "BUILD_ID=dontKillMe npm start"
             sh 'pm2 ls'
             sh 'pm2 list'
