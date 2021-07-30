@@ -2,15 +2,6 @@ pipeline {
   agent any
   tools {nodejs "nodejs"}  
   stages {
-
-    stage('Start') {
-      steps {
-        sh "pwd"
-        sh 'npm install --g cross-env'
-        sh 'npm install -g jest'
-        sh 'npm install forever -g' 
-      }
-    }
   
     stage('Build') {
       steps {
@@ -20,19 +11,11 @@ pipeline {
       }
     }
     
-   stage('Test') {
-      steps {
-        dir("backend") {
-            sh 'npm test'
-        }  
-      }
-    }
-    
     stage('Run') {
       steps {
         dir("backend") {
             sh 'pm2 kill'
-            sh "nodemon"
+            sh "pm2 start ./bin/www"
             sh 'pm2 list'
             sh 'pm2 ping'
         }  
