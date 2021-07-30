@@ -14,7 +14,8 @@ pipeline {
     stage('Run') {
       steps {
         dir("backend") {
-            sh "export BUILD_ID=dontKillMePlease pm2 restart ./bin/www"
+            sh "export BUILD_ID=dontKillMePlease"
+            sh "pm2 restart ./bin/www"
             sh 'pm2 list'
             sh 'pm2 ping'
         }  
