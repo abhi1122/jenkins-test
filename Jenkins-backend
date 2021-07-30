@@ -15,7 +15,7 @@ pipeline {
       steps {
         dir("backend") {
             sh "export BUILD_ID=dontKillMePlease"
-            sh "pm2 start ./bin/www"
+            sh "pm2 start npm -- start"
             sh 'pm2 list'
             sh 'pm2 ping'
         }  
