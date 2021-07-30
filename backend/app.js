@@ -5,33 +5,26 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var swaggerJsdoc = require("swagger-jsdoc");
 var swaggerUi = require("swagger-ui-express");
-var indexRouter = require("./routes/index");
-var supportRouter = require("./routes/support");
+var indexRouter = require("./src/routes/index");
+var supportRouter = require("./src/routes/support");
 var cors = require("cors");
 var app = express();
 var letsConnect = require("lets-connect-socket");
-var userData = require("./table-data/index");
+var userData = require("./src/table-data/index");
 
 const config = require("config");
 
-letsConnect.connect({
-  users: userData.supportTeam,
-  port: config.get("app.socketPort"),
-});
-// view engine setup
+if (process.env.NODE_ENV !== 'test') {
+  letsConnect.connect({
+    users: userData.supportTeam,
+    port: config.get("app.socketPort"),
+  });
+}
+
 app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
-//app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
-//
-// app.use(
-//   bodyParser.urlencoded({
-//     extended: true,
-//   })
-// );
-// app.use(bodyParser.json());
 
 const options = {
   swaggerDefinition: {
@@ -51,7 +44,7 @@ const options = {
       },
     },
   },
-  apis: ["./routes/*.js"],
+  apis: ["./src/routes/*.js"],
 };
 const specs = swaggerJsdoc(options);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));

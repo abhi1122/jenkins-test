@@ -1,6 +1,6 @@
 {
-  "name": "cs-chatboard",
-  "version": "0.1.0",
+  "name": "lets-connect-frontend",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.1",
@@ -23,7 +23,8 @@
   },
   "scripts": {
     "start": "PORT=3008 env-cmd -f .env.dev react-scripts start",
-    "start-prod": "PORT=3008 env-cmd -f .env.prod react-scripts start",
+    "start-prod": "SET PORT=3008 env-cmd -f .env.prod && react-scripts start",
+    "start-prod-win": "PORT=3008 env-cmd -f .env.prod react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -10,6 +10,4 @@ WORKDIR /usr/src/app
 COPY backend/ ./backend/
 RUN cd backend && npm install
 
-EXPOSE 3007
-
-CMD ["npm", "run", "start"]
+EXPOSE 3007 3008 3009

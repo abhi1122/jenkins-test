@@ -4,8 +4,8 @@
     "name": "let's connect",
     "description": "let's connect app is provide chat support between client and support agent",
     "version": "1.01",
-    "host": "localhost:3009",
-    "socketPort": "3011"
+    "host": "localhost:3007",
+    "socketPort": "3009"
   },
   "secret": "3edcb4f9dd472ds4b47914ddcfb1791e1e1ab"
 }
