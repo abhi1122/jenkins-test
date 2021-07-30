@@ -29,7 +29,7 @@ app.use(cookieParser());
 const options = {
   swaggerDefinition: {
     info: {
-      title: config.get("app.name"),
+      title: "test",
       version: config.get("app.version"),
       description: config.get("app.description"),
     },
