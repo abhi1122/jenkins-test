@@ -32,7 +32,7 @@ pipeline {
       steps {
         dir("backend") {
             sh 'pm2 kill'
-            sh "pm2 start ./bin/www"
+            sh "nodemon"
             sh 'pm2 list'
             sh 'pm2 ping'
         }  
