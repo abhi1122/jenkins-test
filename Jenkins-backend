@@ -34,7 +34,7 @@ pipeline {
       steps {
         dir("backend") {
             sh "pwd"
-            sh 'BUILD_ID=dontKillMe cross-env NODE_ENV=production PORT=3007 pm2 start ./bin/www --node-args="--harmony-destructuring --harmony_rest_parameters"
+            sh 'BUILD_ID=dontKillMe cross-env NODE_ENV=production PORT=3007 pm2 start ./bin/www --node-args="--harmony-destructuring --harmony_rest_parameters"'
 
 '
         }  
